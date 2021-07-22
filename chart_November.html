@@ -1,0 +1,127 @@
+<html>
+
+<script src="https://d3js.org/d3.v5.min.js"></script>
+<script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
+
+<style>
+    circle {fill-opacity: 0; stroke-width: 2;}
+
+    div.tooltip {	
+    position: absolute;			
+    text-align: center;			
+    width: 120px;					
+    height: 55px;					
+    padding: 10px;				
+    font: 12px sans-serif;		
+    background: lightsteelblue;	
+    border: 0px;		
+    border-radius: 10px;			
+    pointer-events: none;	
+    }
+
+    /* Pagination links */
+    .pagination a {
+    color: black;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    }
+
+    /* Style the active/current link */
+    .pagination a.active {
+    background-color: green;
+    color: white;
+    }
+
+    /* Add a grey background color on mouse-over */
+    .pagination a:hover:not(.active) {
+    background-color: #ddd;
+    }
+</style>
+
+<div align="center">
+    <h1>November 2020</h1>
+    <p>
+        COVID-19 kept causing the detrimental effect on the US.<br/>
+        Thankfully, the fatality had declined since July.
+    </p>
+    <p><em>Place the <mark>cursor</mark> on the circles for specific information of each state.</em></p>
+</div>
+
+<body onload='init()'>
+<div align="center">
+    <svg width=1200 height=630></svg>
+</div>
+<div class="pagination" align="center">
+    <a href="chart_July.html">&laquo;</a>
+    <a href="index.html">1</a>
+    <a href="chart_March.html">2</a>
+    <a href="chart_July.html">3</a>
+    <a class="active" href="chart_November.html">4</a>
+    <a href="reference.html">5</a>
+    <a href="reference.html">&raquo;</a>
+</div>
+
+<script>
+async function init() {
+    const data = await d3.csv('data/us-states_November_2020.csv');
+
+    // Define the div for the tooltip
+    var div = d3.select("body").append("div")	
+    .attr("class", "tooltip")				
+    .style("opacity", 0);
+
+    xs = d3.scaleLog().domain([10,10000000]).range([0,1000]);
+    ys = d3.scaleLog().domain([1,100000]).range([500,0]);
+
+    d3.select('svg')
+    .append("g")
+    .attr("transform","translate(100,50)")
+    .selectAll('circle')
+    .data(data)
+    .enter()
+    .append('circle')
+    .attr('cx',function(d,i) {return xs(parseInt(d.cases));})
+    .attr('cy',function(d,i) {return ys(parseInt(d.deaths));})
+    .attr('r',function(d,i) {return parseInt(d.deaths)/parseInt(d.cases)*300;})
+    .attr('stroke',function(d,i) {return d3.interpolateRainbow(i/56);})
+    .on("mouseover", function(d) {		
+            div.transition()
+                .duration(200)
+                .style("opacity", 0.8);		
+            div.html("<b>" + d.state + "</b>" + "<br/>" + "- Cases: " + d.cases + "<br/>" + "- Deaths: " + d.deaths  + "<br/>" + "- Fatality: " + (parseInt(d.deaths)/parseInt(d.cases)*100).toFixed(1) + "%")
+                .style("left", (d3.event.pageX) + "px")
+                .style("top", (d3.event.pageY - 28) + "px");	
+            })					
+        .on("mouseout", function(d) {		
+            div.transition()
+            .duration(500)
+            .style("opacity", 0);	
+        });
+
+    d3.select('svg')
+    .append("g")
+    .attr("transform","translate(100,550)")
+    .call(d3.axisBottom(xs).tickValues([10, 100, 1000, 10000, 100000, 1000000, 10000000]).tickFormat(d3.format("~s")));
+
+    d3.select('svg')
+    .append("text")
+    .attr("transform","translate(600,590)")
+    .style("text-anchor", "middle")
+    .text("Cases"); 
+
+    d3.select('svg')
+    .append("g")
+    .attr("transform","translate(100,50)")
+    .call(d3.axisLeft(ys).tickValues([1, 10, 100, 1000, 10000, 100000]).tickFormat(d3.format("~s")));
+
+    d3.select('svg')
+    .append("text")
+    .attr("transform","translate(50,300)")
+    .style("text-anchor", "middle")
+    .text("Deaths"); 
+}
+</script>
+</body>
+
+</html>

@@ -1,0 +1,58 @@
+<html>
+
+<style>
+  /* Pagination links */
+  .pagination a {
+    color: black;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+  }
+
+  /* Style the active/current link */
+  .pagination a.active {
+    background-color: green;
+    color: white;
+  }
+
+  /* Add a grey background color on mouse-over */
+  .pagination a:hover:not(.active) {
+    background-color: #ddd;
+  }
+</style>
+
+<div align="center">
+  <h2>Overview</h2>
+  <p>
+    These web pages are developed by <a href="mailto:junghee2@illinois.edu">Junghee Cho</a><br/>
+    as part of project in the Data Visualization(CS 416) course<br/>
+    by the University of Illinois at Urbana-Champaign.<br/>
+    Summer 2021.
+  </p>
+  <br/>
+  
+  <h2>References</h2>
+  <h3>Data</h3>
+  <p>
+    <a href="https://github.com/nytimes/covid-19-data"> The New York Times. (2021). Coronavirus (Covid-19) Data in the United States</a>
+  </p>
+  <h3>Code</h3>
+  <p>
+    <a href="https://www.w3schools.com/howto/howto_css_pagination.asp">CSS Pagination from W3Schools</a>
+  </p>
+  <p>
+    <a href="https://bl.ocks.org/d3noob/a22c42db65eb00d4e369">Simple d3.js tooltips from bl.ocks.org</a>
+  </p>
+  <br/><br/>
+ 
+  <div class="pagination" align="center">
+    <a href="chart_November.html">&laquo;</a>
+    <a href="index.html">1</a>
+    <a href="chart_March.html">2</a>
+    <a href="chart_July.html">3</a>
+    <a href="chart_November.html">4</a>
+    <a class="active" href="reference.html">5</a>
+  </div>
+</div>
+
+</html>

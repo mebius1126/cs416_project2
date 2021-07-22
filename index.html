@@ -1,0 +1,47 @@
+<html>
+
+<style>
+  /* Pagination links */
+  .pagination a {
+    color: black;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+  }
+
+  /* Style the active/current link */
+  .pagination a.active {
+    background-color: green;
+    color: white;
+  }
+
+  /* Add a grey background color on mouse-over */
+  .pagination a:hover:not(.active) {
+    background-color: #ddd;
+  }
+</style>
+
+<div align="center">
+  <h1>How did COVID-19 impact the US in 2020?</h1>
+  <h4>COVID-19 has tremendously affected the US.</h4>
+  <p>
+  	We will explore the actual impact by observing the number of cases and the resulting death toll by each state.<br/>
+    We will also study the fatality of COVID-19, which is calculated by the ratio of deaths to cases.
+  </p>
+  <p>In order to show distinct changes, the situation of March, July and November will be depicted as a chart.</p>
+  <img src="image/COVID-19.jpg" alt="COVID-19">
+  <br/>
+  <i>* image from 'https://cidoc.mini.icom.museum/covid-19-information/'</i>
+  <br/><br/><br/>
+  
+  <div class="pagination">
+    <a class="active" href="index.html">1</a>
+    <a href="chart_March.html">2</a>
+    <a href="chart_July.html">3</a>
+    <a href="chart_November.html">4</a>
+    <a href="reference.html">5</a>
+    <a href="chart_March.html">&raquo;</a>
+  </div>
+</div>
+
+</html>
